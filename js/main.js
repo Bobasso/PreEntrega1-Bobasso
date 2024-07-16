@@ -1,11 +1,11 @@
 function simulacroPlazoFijo(){
-    alert(`Bienvenido al Banco! 
+    alert(`Bienvenido al Banco Aurora! 
         Vamos a hacer una simulacón de un plazo fijo. Esto depende de varios factores como la cantidad de días, el monto a depositar, la tasa nominal anual, etc.`);
     
     let monto;
-    do {
-        monto = parseInt(prompt("Ingresé la cantidad de pesos que quiere depositar, con un mínimo de $1500"));
-    } while(monto < 1500);
+    do{
+        monto = parseInt(prompt("Ingresé la cantidad de pesos que quiere depositar, con un mínimo de $1.500 y máximo de $1.000.000"));
+    }while(monto < 1500);
 
     let planPlazoFijo;
     do{
@@ -35,12 +35,13 @@ function simulacroPlazoFijo(){
         plazo = parseInt(prompt("¿Cuantos días quiere dejar su plata en el plazo fijo? Escriba solamente la cantidad de días, mínimo 30 días y máximo 365 días."))
     }while(plazo < 30 || plazo > 365);
 
-    let calculoTasa = parseFloat(parseFloat((monto * (tasaNominal * plazo/365))).toFixed(2));
-    let resultado = monto + calculoTasa;
+    const calculoTasa = plata => parseFloat(parseFloat((plata * (tasaNominal * plazo/365))).toFixed(2));
 
-    alert("Una vez hecho los calculos sacamos que tu monto de $" + monto + " en un plazo de " + plazo + " con el Plan " + planPlazoFijo.toUpperCase() + " nos da como ganancia $" + calculoTasa + " obteniendo un total de $" + resultado);
+    const resultado = monto + calculoTasa(monto);
 
-    if (confirm("Te gustaría volver a simular un plazo fijo?")) {
+    alert("Una vez hecho los calculos sacamos que tu monto de $" + monto + " en un plazo de " + plazo + " días con el Plan " + planPlazoFijo.toUpperCase() + ", nos da como ganancia $" + calculoTasa(monto) + " obteniendo asi un total de $" + resultado.toFixed(2));
+
+    if (confirm("Te gustaría volver a simular un plazo fijo?")){
         simulacroPlazoFijo();
     }
 }
